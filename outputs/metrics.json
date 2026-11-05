@@ -1,0 +1,71 @@
+{
+  "split": {
+    "train_snapshot_month_max": "2024-12",
+    "test_snapshot_month_min": "2025-05",
+    "buffer_excluded": "2025-01 to 2025-04",
+    "gap_months": 1,
+    "target_window": "t+2 to t+4 months, expansion = MRR > 1.05 * MRR at t"
+  },
+  "train_n": 4592,
+  "test_n": 1706,
+  "train_positive_rate": 0.2537,
+  "test_positive_rate": 0.2567,
+  "test_positives": 438,
+  "features": [
+    "seats",
+    "mrr",
+    "tenure_months",
+    "usage_events_3m",
+    "usage_per_seat_3m",
+    "tickets_3m",
+    "mrr_growth_3m",
+    "prior_expansion_flag",
+    "usage_growth",
+    "plan"
+  ],
+  "models": {
+    "logistic_regression": {
+      "auc": 0.7008,
+      "auc_95ci_low": 0.6726,
+      "auc_95ci_high": 0.7279,
+      "bootstrap_resamples_used": 200,
+      "bootstrap_skipped_single_class": 0
+    },
+    "gradient_boosting": {
+      "auc": 0.6351,
+      "auc_95ci_low": 0.6045,
+      "auc_95ci_high": 0.6661,
+      "bootstrap_resamples_used": 200,
+      "bootstrap_skipped_single_class": 0
+    }
+  },
+  "best_model_by_auc": "logistic_regression",
+  "top_decile": {
+    "n": 171,
+    "expansion_rate": 0.4795,
+    "capture_rate": 0.1872,
+    "lift_vs_random": 1.8721
+  },
+  "tiers": [
+    {
+      "tier": "High",
+      "n": 512,
+      "expansion_rate": 0.4297
+    },
+    {
+      "tier": "Medium",
+      "n": 682,
+      "expansion_rate": 0.2493
+    },
+    {
+      "tier": "Low",
+      "n": 512,
+      "expansion_rate": 0.0938
+    }
+  ],
+  "tier_thresholds": {
+    "low_medium_cutoff": 0.1872,
+    "medium_high_cutoff": 0.3033
+  },
+  "note": "All metrics are computed on this run's synthetic data and held-out test set. No placeholder metrics are used."
+}
